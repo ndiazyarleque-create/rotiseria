@@ -79,8 +79,8 @@ document.addEventListener('DOMContentLoaded', function(){
 function createCheckoutSession(email){
   var cart = getCart();
   if(cart.length===0) return alert('Carrito vacío');
-  return fetch('/create-checkout-session', {
-    method:'POST',
+  return fetch('https://rotiseria.up.railway.app/create-checkout-session', {
+    method: 'POST',
     headers:{'Content-Type':'application/json'},
     body: JSON.stringify({cart:cart, email: email})
   }).then(function(r){ return r.json(); });
