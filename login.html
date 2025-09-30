@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Login - La Rotisería</title><link href="styles.css" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+</head><body class="centered"><div class="card login-card"><h2>Iniciar Sesión / Registrarse</h2>
+<form id="loginForm"><label>Correo<input id="email" type="email" required></label><label>Contraseña<input id="password" type="password" required></label><div class="actions"><button type="submit">Ingresar</button><button type="button" id="registerBtn">Registrarse</button></div></form><p class="muted">Usa un correo real para recibir confirmaciones (simuladas)</p></div>
+<script src="app.js"></script>
+<script>
+  // initialize firebase (llenar firebaseConfig en app.js)
+  document.getElementById('loginForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const pass = document.getElementById('password').value;
+    firebase.auth().signInWithEmailAndPassword(email, pass).then(function(){
+      alert('Sesión iniciada: '+email);
+      window.location.href = 'index.html';
+    }).catch(function(err){
+      alert('Error: '+err.message);
+    });
+  });
+  document.getElementById('registerBtn').addEventListener('click', function(){
+    const email = document.getElementById('email').value;
+    const pass = document.getElementById('password').value;
+    firebase.auth().createUserWithEmailAndPassword(email, pass).then(function(){
+      alert('Usuario creado y logueado');
+      window.location.href = 'index.html';
+    }).catch(function(err){ alert('Error: '+err.message); });
+  });
+</script>
+</body></html>

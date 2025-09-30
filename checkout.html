@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Checkout - La Rotisería</title><link href="styles.css" rel="stylesheet"></head>
+<body><header class="site-header"><div class="container"><h1 class="brand"><a href="index.html">La Rotisería</a></h1><nav><a href="products.html">Productos</a><a href="checkout.html">Carrito</a><a href="login.html">Login</a></nav></div></header>
+<main class="container"><h2>Tu Carrito</h2><div id="cart-list"></div><div class="checkout-summary"><p id="subtotal">Subtotal: CLP $0</p><button id="payBtn">Pagar con tarjeta</button></div></main><footer class="site-footer"><div class="container">© 2025 La Rotisería.</div></footer>
+<script src="app.js"></script>
+<script>
+document.getElementById('payBtn').addEventListener('click', function(){
+  // require login
+  const user = firebase.auth().currentUser;
+  if(!user){ if(confirm('Debes iniciar sesión para pagar. Ir a login?')) window.location.href='login.html'; return; }
+  // send cart to server to create Stripe session
+  const cart = JSON.parse(localStorage.getItem('cart')||'[]');
+  fetch('/create-checkout-session', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({cart:cart, email: user.email})
+  }).then(res=>res.json()).then(data=>{
+    if(data.url){ window.location.href = data.url; }
+    else alert('Error al crear sesión de pago');
+  }).catch(err=>{ alert('Error: '+err.message); });
+});
+</script>
+</body></html>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>La Rotisería - Inicio</title>
+  <link href="styles.css" rel="stylesheet">
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <h1 class="brand"><a href="index.html">La Rotisería</a></h1>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="products.html">Productos</a>
+      <a href="promos.html">Promociones</a>
+      <a href="delivery.html">Delivery</a>
+      <a href="contacto.html">Contacto</a>
+      <a href="quienes.html">Quiénes Somos</a>
+      <a href="checkout.html">Carrito</a>
+      <a href="login.html" id="nav-auth-link">Login</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <h2>El sabor de siempre, como en casa.</h2>
+    <p>Pollos rostizados, carnes, preparados, acompañamientos, postres y bebidas. Pide online y recibe en tu casa.</p>
+    <a class="btn" href="products.html">Ver Carta Completa</a>
+  </div>
+</section>
+
+<section class="container preproducts">
+  <h2>Productos destacados</h2>
+  <div class="grid" id="home-products"></div>
+  <div class="center"><a class="btn" href="products.html">Ver todos los productos</a></div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>© 2025 La Rotisería. Todos los derechos reservados.</p>
+    <p>Síguenos en Instagram · Facebook</p>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<script>
+const PRODUCTS = [{"id": 1, "category": "Categoria", "name": "Pollo Entero Rostizado", "price": 5990, "img": "images/p1.svg"}, {"id": 2, "category": "Categoria", "name": "Medio Pollo Rostizado", "price": 6990, "img": "images/p2.svg"}, {"id": 3, "category": "Categoria", "name": "Asado de Tira", "price": 7990, "img": "images/p3.svg"}, {"id": 4, "category": "Categoria", "name": "Pernil de Cerdo", "price": 8990, "img": "images/p4.svg"}, {"id": 5, "category": "Categoria", "name": "Pollo al Aj\u00ed", "price": 9990, "img": "images/p5.svg"}, {"id": 6, "category": "Categoria", "name": "Papas Fritas", "price": 10990, "img": "images/p6.svg"}, {"id": 7, "category": "Categoria", "name": "Pur\u00e9 de Papas", "price": 11990, "img": "images/p7.svg"}, {"id": 8, "category": "Categoria", "name": "Empanada de Pino", "price": 12990, "img": "images/p8.svg"}, {"id": 9, "category": "Categoria", "name": "Empanada de Queso", "price": 13990, "img": "images/p9.svg"}, {"id": 10, "category": "Categoria", "name": "Ensalada Chilena", "price": 14990, "img": "images/p10.svg"}, {"id": 11, "category": "Categoria", "name": "Ensalada C\u00e9sar", "price": 15990, "img": "images/p11.svg"}, {"id": 12, "category": "Categoria", "name": "Torta de Chocolate", "price": 16990, "img": "images/p12.svg"}, {"id": 13, "category": "Categoria", "name": "Flan Casero", "price": 17990, "img": "images/p13.svg"}, {"id": 14, "category": "Categoria", "name": "Bebida 1.5L", "price": 18990, "img": "images/p14.svg"}, {"id": 15, "category": "Categoria", "name": "Cerveza", "price": 19990, "img": "images/p15.svg"}, {"id": 16, "category": "Categoria", "name": "Queso Fresco", "price": 20990, "img": "images/p16.svg"}, {"id": 17, "category": "Categoria", "name": "Yogurt Natural", "price": 21990, "img": "images/p17.svg"}, {"id": 18, "category": "Categoria", "name": "Ensalada con Pollo", "price": 22990, "img": "images/p18.svg"}, {"id": 19, "category": "Categoria", "name": "Guiso Casero", "price": 23990, "img": "images/p19.svg"}, {"id": 20, "category": "Categoria", "name": "Combo Familiar", "price": 24990, "img": "images/p20.svg"}, {"id": 21, "category": "Categoria", "name": "Promo Empanadas", "price": 25990, "img": "images/p21.svg"}, {"id": 22, "category": "Categoria", "name": "Arroz con Pollo", "price": 26990, "img": "images/p22.svg"}, {"id": 23, "category": "Categoria", "name": "Lomito Saltado", "price": 27990, "img": "images/p23.svg"}, {"id": 24, "category": "Categoria", "name": "Ensalada Rusa", "price": 28990, "img": "images/p24.svg"}];
+const homeList = document.getElementById('home-products');
+if (homeList) {
+  PRODUCTS.slice(0,6).forEach(function(p){
+      const div = document.createElement('div');
+      div.className = 'card';
+      div.innerHTML = '<img src="'+p.img+'" alt="'+p.name+'"><h4>'+p.name+'</h4><p>CLP $'+p.price+'</p><div class="card-actions"><button onclick="addToCart('+p.id+')">Agregar</button><button onclick="viewProduct('+p.id+')">Ver</button></div>';
+      homeList.appendChild(div);
+  });
+}
+</script>
+</body>
+</html>
